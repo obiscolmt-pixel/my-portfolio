@@ -1,32 +1,89 @@
+import { useState, useEffect } from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import CV from "./CV";
+
+const roles = [
+  "Full Stack Developer",
+  "Tech Entrepreneur",
+  "React Developer",
+  "Node.js Developer",
+  "Problem Solver",
+];
+
 const Hero = () => {
+  const [currentRole, setCurrentRole] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+    let timeout;
+
+    if (!deleting && charIndex < current.length) {
+      timeout = setTimeout(() => setCharIndex((c) => c + 1), 100);
+    } else if (!deleting && charIndex === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 1500);
+    } else if (deleting && charIndex > 0) {
+      timeout = setTimeout(() => setCharIndex((c) => c - 1), 50);
+    } else if (deleting && charIndex === 0) {
+      setDeleting(false);
+      setRoleIndex((i) => (i + 1) % roles.length);
+    }
+
+    setCurrentRole(current.slice(0, charIndex));
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, roleIndex]);
+
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
       <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-
         {/* Text */}
         <div>
           <p className="text-orange-500 font-semibold text-sm uppercase tracking-widest mb-4">
             👋 Hello, I'm
           </p>
           <h1 className="text-5xl md:text-6xl font-black text-white leading-tight mb-4">
-            Ariogba<br />
-            <span className="text-orange-500">Patrick</span><br />
+            Ariogba
+            <br />
+            <span className="text-orange-500">Patrick</span>
+            <br />
             Obinna
           </h1>
+
+          {/* Typing animation */}
+          <div className="flex items-center gap-2 mb-6">
+            <span className="text-gray-300 text-xl font-semibold">
+              {currentRole}
+            </span>
+            <span className="w-0.5 h-6 bg-orange-500 animate-pulse inline-block" />
+          </div>
+
           <p className="text-gray-400 text-lg leading-relaxed mb-8">
-            Full Stack Developer & Tech Entrepreneur building real-world products for the Nigerian market and beyond.
+            Building real-world products for the Nigerian market and beyond.
+            Founder of Obisco Store and Obisco Tech Academy.
           </p>
 
           <div className="flex flex-wrap gap-4">
-            
-            <a  href="#projects"
+            <a
+              href="#projects"
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-full transition"
             >
               View My Work
             </a>
-            
-             <a href="#contact"
+            <PDFDownloadLink
+              document={<CV />}
+              fileName="Ariogba_Patrick_CV.pdf"
               className="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold px-8 py-3 rounded-full transition"
+            >
+              {({ loading }) =>
+                loading ? "Preparing CV..." : "📄 Download CV"
+              }
+            </PDFDownloadLink>
+
+            <a
+              href="#contact"
+              className="border border-gray-600 text-gray-400 hover:text-white hover:border-white font-bold px-8 py-3 rounded-full transition"
             >
               Hire Me
             </a>
@@ -61,7 +118,6 @@ const Hero = () => {
                 />
               </div>
             </div>
-            {/* Floating badge */}
             <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
               🚀 Available for hire
             </div>
@@ -69,7 +125,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
