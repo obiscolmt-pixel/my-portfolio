@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import CV from './CV'
 
@@ -9,6 +9,19 @@ const roles = [
   'Node.js Developer',
   'Problem Solver',
 ]
+
+const CVButton = memo(() => (
+  <PDFDownloadLink
+    document={<CV />}
+    fileName="Ariogba_Patrick_CV.pdf"
+  >
+    {({ loading }) => (
+      <button className="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold px-8 py-3 rounded-full transition">
+        {loading ? 'Preparing...' : '📄 Download CV'}
+      </button>
+    )}
+  </PDFDownloadLink>
+))
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState('')
@@ -59,7 +72,7 @@ const Hero = () => {
           </div>
 
           <p className="text-gray-400 text-lg leading-relaxed mb-8">
-            Building real-world products for the Nigerian market and beyond. Founder of Obisco Store and Obisco Tech Academy.
+            Building real-world products for the Nigerian market and beyond. Founder of Obisco Prime Limited — home of Obisco Store and Obisco Tech Academy.
           </p>
 
           {/* Buttons */}
@@ -71,16 +84,7 @@ const Hero = () => {
               View My Work
             </a>
 
-            <PDFDownloadLink
-              document={<CV />}
-              fileName="Ariogba_Patrick_CV.pdf"
-            >
-              {({ loading }) => (
-                <button className="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold px-8 py-3 rounded-full transition">
-                  {loading ? 'Preparing...' : '📄 Download CV'}
-                </button>
-              )}
-            </PDFDownloadLink>
+            <CVButton />
 
             
             <a  href="#contact"
@@ -93,7 +97,7 @@ const Hero = () => {
           {/* Stats */}
           <div className="flex gap-8 mt-12">
             <div>
-              <p className="text-3xl font-black text-white">1+</p>
+              <p className="text-3xl font-black text-white">2+</p>
               <p className="text-gray-500 text-sm">Years Coding</p>
             </div>
             <div>
@@ -101,7 +105,7 @@ const Hero = () => {
               <p className="text-gray-500 text-sm">Projects Built</p>
             </div>
             <div>
-              <p className="text-3xl font-black text-white">23+</p>
+              <p className="text-3xl font-black text-white">10+</p>
               <p className="text-gray-500 text-sm">Students Trained</p>
             </div>
           </div>
