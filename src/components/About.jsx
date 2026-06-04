@@ -12,10 +12,10 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gray-400 leading-relaxed mb-6">
-              I'm a 23-year-old Full Stack Developer and Tech Entrepreneur from Nigeria. I build real-world web applications that solve actual problems for real users — not just demo projects.
+              I'm a Full Stack Developer and Tech Entrepreneur from Nigeria. I build real-world web applications that solve actual problems for real users — not just demo projects.
             </p>
             <p className="text-gray-400 leading-relaxed mb-6">
-              I'm the founder of <span className="text-orange-500 font-semibold">Obisco Tech Academy</span>, where I train the next generation of Nigerian developers, and <span className="text-orange-500 font-semibold">Obisco Store</span> — a full-featured e-commerce and VTU platform serving Nigerian customers.
+              I'm the founder of <span className="text-orange-500 font-semibold">Obisco Prime Limited</span> — a registered Nigerian tech company under which I operate <span className="text-orange-500 font-semibold">Obisco Store</span>, a full-featured e-commerce and VTU platform, and <span className="text-orange-500 font-semibold">Obisco Tech Academy</span>, an online initiative for aspiring developers worldwide.
             </p>
             <p className="text-gray-400 leading-relaxed mb-8">
               I'm passionate about building products that matter — from payment integrations to push notifications, PWA, and VTU systems. I write clean, scalable code and I'm always learning.
@@ -38,9 +38,9 @@ const About = () => {
 
           <div className="flex flex-col gap-4">
             {[
+              { emoji: '🏢', title: 'Obisco Prime Limited', desc: 'Registered Nigerian tech company — the parent brand behind Obisco Store and Obisco Tech Academy' },
               { emoji: '🏪', title: 'Obisco Store', desc: 'Full-stack e-commerce + VTU platform with Paystack payments, push notifications and PWA' },
-              { emoji: '🎓', title: 'Obisco Tech Academy', desc: 'Tech training school teaching web development to Nigerian students' },
-              { emoji: '💡', title: 'Problem Solver', desc: 'I build solutions for real Nigerian market problems — payments, VTU, delivery' },
+              { emoji: '🎓', title: 'Obisco Tech Academy', desc: 'An online initiative where I teach web development to aspiring developers worldwide' },
             ].map(item => (
               <div key={item.title} className="bg-gray-900 border border-gray-800 rounded-2xl p-5 hover:border-orange-500 transition">
                 <p className="text-2xl mb-2">{item.emoji}</p>
